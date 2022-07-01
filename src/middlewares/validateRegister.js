@@ -1,6 +1,6 @@
 import joi from "joi";
-//import { v4 as uuid } from 'uuid';
 import bcrypt from 'bcrypt';
+import { db } from "../db/mongo.js";
 
 const registerSchema = joi.object({
     name: joi.string().required(),
@@ -20,6 +20,13 @@ export default async function validateRegister(req, res, next) {
     }
     if (newRegister.password!==newRegister.confirmPassword){
         res.status(400).send("As senhas devem ser iguais!");
+        return;
+    }
+
+    const emailExists = await db.collection("users").findOne({email: newRegister.email});
+
+    if (emailExists){
+        res.status(409).send("Email já está em uso!");
         return;
     }
 
