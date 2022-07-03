@@ -15,7 +15,7 @@ export default async function validateLogin(req, res, next) {
     const { error } = loginSchema.validate(data);
 
     if (error) {
-        res.status(422).send(error);
+        res.status(422).send("Todos os campos são obrigatórios!");
         return;
     }
 
