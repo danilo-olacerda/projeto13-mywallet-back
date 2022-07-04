@@ -26,6 +26,8 @@ export default async function validateInOut(req, res, next){
         return;
     }
 
+    req.body.value = parseFloat(req.body.value).toFixed(2);
+
     res.locals.user = user;
     res.locals.post = req.body;
 

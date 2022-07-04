@@ -1,12 +1,14 @@
 import { Router } from "express";
 import validateInOut from "../middlewares/validateInOut.js";
-import { in_out } from "../controllers/userController.js";
+import validateGetPosts from "../middlewares/validateGetPosts.js";
+import validateDelete from "../middlewares/validateDelete.js";
+import { in_out, getPosts, deleteinout } from "../controllers/userController.js";
 
 const  router  = Router();
 
-router.get("/userinout", validateInOut, in_out);
-//router.post("/in", validateLogin, login);
-//router.post("/out")
+router.post("/newinout", validateInOut, in_out);
+router.get("/userinout", validateGetPosts, getPosts);
+router.delete("/deleteinout/:postID", validateDelete, deleteinout);
 
 
 export default router;
